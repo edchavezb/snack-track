@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="addroutine.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <title>Zoezi: Add Routine</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html">Snack Track</a>
+  
+    <div class="navbar-nav ml-auto">
+      <div class="dropdown">
+        <span class="dropdown-toggle user text-white" data-toggle="dropdown">User</span>
+        <ul class="dropdown-menu mt-2 px-3 py-2">
+          <a id="dropdown-home" href="routines.html"><li>My profile</li></a>
+          <a id="dropdown-routine" href="addroutine.html"><li class="mt-1">Create routine</li></a>
+          <li id="log-out" class="mt-1">Log out</li>
+        </ul>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="container editor-container">
+
+    <div class="card ui mt-2 mb-3">
+      <div class="card-header ui">List of possible snacks</div>
+
+      <div class="card-body ui">
+
+        <div class="row">
+
+          <div class="col-12 display-routine">
+
+          </div>
+
+        </div>
+
+        <div id="template" class="d-none row">
+          <div class="name-label text-center">Template</div>
+
+          <div class="controls">
+
+            <input type="text" class="seconds form-control" id="time" value="1">
+            <span class="ml-md-1 sec-title"> amt </span>
+            <button type="button" class="btn btn-secondary zoebtn ml-0 ml-sm-3" id="subtract-time">-</button>
+            <button type="button" class="btn btn-secondary zoebtn" id="add-time">+</button>
+            <span><i class="fas fa-trash-alt ml-2" id="remove-exercise"></i></span>
+
+          </div>
+        </div>
+
+        <div class="row time-display mt-4 mb-4">
+          <div class="col-6"></div>
+          <div class="col-12 col-md-6 text-right">
+            <span class="cycle-time px-md-3"> Total: </span>
+          </div>
+        </div>
+
+        <div class="row ml-0 ml-md-4">
+          <label for="name-input">Name of snack item:</label>
+        </div>
+        <div class="row add-form ml-md-3">
+
+          <div class="form-group exercise-name-input px-2">
+            <input type="text" class="form-control" id="name-input">
+          </div>
+
+          <div class="form-group add-buttons ml-2 ml-md-0">
+            <button class="btn btn-secondary" id="add-exercise" type="submit">Add Item</button>
+          </div>
+
+        </div>
+
+        <div class="form-row mt-3 mb-3">
+          <div class="col-12 text-center">
+            <button class="btn btn-secondary" id="save-routine">Save changes</button>
+            <button class="btn btn-secondary" id="discard">Wipe list</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+  <script src="addroutine.js"></script>
+
+</body>
+</html>

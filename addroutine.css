@@ -1,0 +1,100 @@
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline-block;
+}
+
+.cycles {
+    width: 50px;
+    display: inline-block;
+}
+
+.zoebtn{
+    width: 38px !important;
+}
+
+.fa-trash-alt{
+    color: #5A717D;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.seconds{
+    width: 60px;
+    display: inline-block;
+}
+
+#template, .new-exercise, .add-form {
+    display: flex;
+}
+
+.controls {
+    width: 250px;
+}
+
+.add-buttons {
+    width: 250px;
+    display: inline-block;
+}
+
+.name-label{
+    text-align: center;
+}
+
+.name-label, .exercise-name-input {
+    flex-grow: 1;
+}
+
+.weekdays {
+    display: inline
+}
+
+#remove-exercise, .name-label {
+    height: 38px;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.saved-alert{
+    display: none;
+}
+
+.dismiss{
+    float: right;
+    cursor: pointer;
+}
+
+@media (max-width:768px) {
+    .controls{
+        width: 40%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .name-label{
+        width: 60%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .sec-title{
+        display: none
+    }
+    .name-label{
+        text-align: initial;
+    }
+}
+
+@media (max-width:576px) {
+    .controls{
+        width: 50%;
+        margin-left: -5%
+    }
+    .name-label{
+        width: 50%;
+        margin-right: -5%;
+        padding-right: 8%
+    }
+    .editor-content, .editor-container{
+        padding: 0px !important;
+    }
+}
