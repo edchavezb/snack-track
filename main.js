@@ -10,20 +10,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-var email, uid, emailVerified;
-var totalTime = 0;
-
-
-$(".time-display").hide();
-
 var database = firebase.database();
 var rows = 0;
-var cycles = 1;
-var schedule = [];
-var currentCount = 0;
-var uRoutinesArr = [];
-var cycleTime;
-var totalTime;
 var snackArray;
 
 database.ref('snacks').once('value').then(function(snapshot) {
@@ -40,7 +28,7 @@ database.ref('snacks').once('value').then(function(snapshot) {
     newSnack.attr("row", i);
     newSnack.find(".name-label").text(snackName);
     newSnack.find(".number").val(snackAmount);
-    $(".display-routine").append(newSnack);
+    $(".display-snacks").append(newSnack);
     calculateTotal();
     $(".total-display").show();
   }
@@ -72,8 +60,8 @@ $("#add-item").on("click", function () {
   newSnack.attr("amount", "1");
   newSnack.attr("row", rows);
   newSnack.find(".name-label").text(name);
-  $(".display-routine").append(newSnack);
-  $(".time-display").show();
+  $(".display-snacks").append(newSnack);
+  $(".total-display").show();
   calculateTotal();
   rows++;
 });
@@ -138,14 +126,8 @@ $(".saved-alert").on("click", function () {
 });
 
 function resetList(){
-  $("#routine-input").val("");
-  $("#type-input option:first").attr("selected",true);
-  $("#target-input option:first").attr("selected",true);
-  $("input[id='dropdownCheck']").prop("checked", false);
-  $(".cycles").val("1");
-  $(".display-routine").empty();
-  $(".time-display").hide();
+  $(".display-snacks").empty();
   $("#name-input").val("");
-  cycles = 1;
   rows = 0;
+  calculateTotal();
 }
