@@ -107,7 +107,7 @@ $(document).on("click", ".decrease-amount", function () {
   calculateTotal();
 });
 
-$(document).on("change keyup", ".amount", function() {
+$(document).on("change keyup", ".number", function() {
   var inputAmount = $(this).val();
   $(this).closest(".new-snack").attr("amount", inputAmount);
   calculateTotal();
