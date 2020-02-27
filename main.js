@@ -29,7 +29,6 @@ var snackArray;
 database.ref('snacks').once('value').then(function(snapshot) {
   snackArray = snapshot.val();
   console.log(snackArray)
-  console.log(currentCount)
   for(var i = 1; i < snackArray.length; i++){
     var rows = snackArray.length
     var snackName = snackArray[i].name
@@ -44,13 +43,10 @@ database.ref('snacks').once('value').then(function(snapshot) {
     newSnack.find(".seconds").val(snackAmount);
     $(".display-routine").append(newSnack);
     $(".time-display").show();
-    currentCount++
-    console.log(currentCount)
   }
-  console.log(currentCount)
 });
 
-database.ref().on("value", function(snapshot) {
+/* database.ref().on("value", function(snapshot) {
   if (snapshot.child("snackCount").exists()) {
     currentCount = parseInt(snapshot.val().snackCount);
     rows = parseInt(snapshot.val().snackCount)
@@ -58,7 +54,7 @@ database.ref().on("value", function(snapshot) {
   else {
     database.ref().set({snackCount: currentCount});
   }
-});
+}); */
 
 function calculateTotal() {
   cycleTime = 0;
@@ -93,8 +89,8 @@ $(document).on("change keyup", ".seconds", function() {
 });
 
 $(document).on("click", "#remove-exercise", function () {
-  var parentExercise = $(this).closest(".new-exercise");
-  parentExercise.remove();
+  var parentSnackDiv = $(this).closest(".new-exercise");
+  parentSnackDiv.remove();
   calculateTotal();
   console.log("removed!");
 });
@@ -129,10 +125,10 @@ $("#save-routine").on("click", function () {
       amount: $(this).find(".seconds").val(),
     });
   });
-  var updatedCount = $(".new-exercise").length;
+  /* var updatedCount = $(".new-exercise").length;
   console.log(updatedCount + " snacks stored in database");
   
-  database.ref().update({snackCount: updatedCount});
+  database.ref().update({snackCount: updatedCount}); */
 
   $(".saved-alert").slideToggle();
 });
