@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="./images/apple-icon.png">
   <title>Track your snacks!</title>
 </head>
 
@@ -18,7 +19,7 @@
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Snack Track</a>
   
-    <div class="navbar-nav ml-auto">
+<!--     <div class="navbar-nav ml-auto">
       <div class="dropdown">
         <span class="dropdown-toggle user text-white" data-toggle="dropdown">User</span>
         <ul class="dropdown-menu mt-2 px-3 py-2">
@@ -27,11 +28,15 @@
           <li id="log-out" class="mt-1">Log out</li>
         </ul>
       </div>
-    </div>
+    </div> -->
 
   </nav>
 
   <div class="container editor-container">
+
+    <div class="saved-alert alert alert-info mt-3 mb-n2" role="alert">
+      Your snacks have been saved! <span class="dismiss">(dismiss)</span>
+    </div>
 
     <div class="card ui mt-2 mb-3">
       <div class="card-header ui">List of possible snacks</div>
@@ -50,41 +55,38 @@
           <div class="name-label text-center">Template</div>
 
           <div class="controls">
-
-            <input type="text" class="seconds form-control" id="time" value="1">
-            <span class="ml-md-1 sec-title"> amt </span>
-            <button type="button" class="btn btn-secondary zoebtn ml-0 ml-sm-3" id="subtract-time">-</button>
-            <button type="button" class="btn btn-secondary zoebtn" id="add-time">+</button>
-            <span><i class="fas fa-trash-alt ml-2" id="remove-exercise"></i></span>
-
+            <div class="amount-button zoebtn"><button type="button" class="decrease-amount btn btn-secondary ml-0 ml-sm-3">-</button></div>
+            <input type="text" class="number form-control" value="1">
+            <div class="amount-button zoebtn"><button type="button" class="increase-amount btn btn-secondary">+</button></div>
+            <div class="remove-div"><i class="remove-item fas fa-trash-alt ml-2"></i></div>
           </div>
         </div>
 
-        <div class="row time-display mt-4 mb-4">
+        <div class="row total-display mt-4 mb-4">
           <div class="col-6"></div>
           <div class="col-12 col-md-6 text-right">
-            <span class="cycle-time px-md-3"> Total: </span>
+            <span class="snack-total px-md-3"> Total: </span>
           </div>
         </div>
 
         <div class="row ml-0 ml-md-4">
           <label for="name-input">Name of snack item:</label>
         </div>
-        <div class="row add-form ml-md-3">
+        <div class="row add-form px-md-3">
 
-          <div class="form-group exercise-name-input px-2">
+          <div class="form-group snack-name-input px-2">
             <input type="text" class="form-control" id="name-input">
           </div>
 
           <div class="form-group add-buttons ml-2 ml-md-0">
-            <button class="btn btn-secondary" id="add-exercise" type="submit">Add Item</button>
+            <button class="btn btn-secondary" id="add-item" type="submit">Add Item</button>
           </div>
 
         </div>
 
         <div class="form-row mt-3 mb-3">
           <div class="col-12 text-center">
-            <button class="btn btn-secondary" id="save-routine">Save changes</button>
+            <button class="btn btn-secondary" id="save-list">Save changes</button>
             <button class="btn btn-secondary" id="discard">Wipe list</button>
           </div>
         </div>

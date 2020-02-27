@@ -29,120 +29,115 @@ var snackArray;
 database.ref('snacks').once('value').then(function(snapshot) {
   snackArray = snapshot.val();
   console.log(snackArray)
-  for(var i = 1; i < snackArray.length; i++){
-    var rows = snackArray.length
+  for(var i = 0; i < snackArray.length; i++){
     var snackName = snackArray[i].name
     var snackAmount = snackArray[i].amount
     var newSnack = $("<div>");
     newSnack.html($("#template").html());
     console.log(newSnack);
-    newSnack.addClass("new-exercise row mt-1");
-    newSnack.attr("time", snackAmount);
+    newSnack.addClass("new-snack row mt-1");
+    newSnack.attr("amount", snackAmount);
     newSnack.attr("row", i);
     newSnack.find(".name-label").text(snackName);
-    newSnack.find(".seconds").val(snackAmount);
+    newSnack.find(".number").val(snackAmount);
     $(".display-routine").append(newSnack);
-    $(".time-display").show();
+    calculateTotal();
+    $(".total-display").show();
   }
 });
-
-/* database.ref().on("value", function(snapshot) {
-  if (snapshot.child("snackCount").exists()) {
-    currentCount = parseInt(snapshot.val().snackCount);
-    rows = parseInt(snapshot.val().snackCount)
-  }
-  else {
-    database.ref().set({snackCount: currentCount});
-  }
-}); */
 
 function calculateTotal() {
-  cycleTime = 0;
-  $(".new-exercise").each(function(){
-    cycleTime += parseInt($(this).attr("time"));
+  totalSnacks = 0;
+  $(".new-snack").each(function(){
+    totalSnacks += parseInt($(this).attr("amount"));
   });
-  totalTime = cycleTime * cycles;
-  $(".cycle-time").text("Total number of snacks: " + cycleTime);
+  $(".snack-total").text("Total number of snacks: " + totalSnacks);
 };
 
-$("#add-exercise").on("click", function () {
+function rearrangeRows() {
+  rows = 0;
+  $(".new-snack").each(function(){
+    $(this).attr("row", rows);
+    rows++
+  });
+}
+
+$("#add-item").on("click", function () {
   event.preventDefault();
-  rows++;
   var name = $("#name-input").val();
   console.log($("#name-input").val().trim());
-  var newExercise = $("<div>");
-  newExercise.html($("#template").html());
-  newExercise.addClass("new-exercise row mt-1");
-  newExercise.attr("time", "1");
-  newExercise.attr("row", rows);
-  newExercise.find(".name-label").text(name);
-  $(".display-routine").append(newExercise);
+  var newSnack = $("<div>");
+  newSnack.html($("#template").html());
+  newSnack.addClass("new-snack row mt-1");
+  newSnack.attr("amount", "1");
+  newSnack.attr("row", rows);
+  newSnack.find(".name-label").text(name);
+  $(".display-routine").append(newSnack);
   $(".time-display").show();
   calculateTotal();
+  rows++;
 });
 
-$(document).on("change keyup", ".seconds", function() {
-  var inputTime = $(this).val();
-  $(this).closest(".new-exercise").attr("time", inputTime);
-  calculateTotal();
-  console.log("change");
-});
-
-$(document).on("click", "#remove-exercise", function () {
-  var parentSnackDiv = $(this).closest(".new-exercise");
+$(document).on("click", ".remove-item", function () {
+  var parentSnackDiv = $(this).closest(".new-snack");
   parentSnackDiv.remove();
+  database.ref('snacks').child(parentSnackDiv.attr("row")).remove();
+  rearrangeRows();
   calculateTotal();
   console.log("removed!");
 });
 
-$(document).on("click", "#add-time", function () {
-  var thisRow = $(this).closest(".new-exercise");
-  var timeAttr = parseInt(thisRow.attr("time"));
-  var newTime = timeAttr + 1;
-  thisRow.attr("time", newTime)
-  var displayTime = thisRow.find(".seconds");
-  displayTime.val(newTime);
+$(document).on("click", ".increase-amount", function () {
+  var thisRow = $(this).closest(".new-snack");
+  var amtAttr = parseInt(thisRow.attr("amount"));
+  var newAmt = amtAttr + 1;
+  thisRow.attr("amount", newAmt)
+  var displayNumber = thisRow.find(".number");
+  displayNumber.val(newAmt);
   calculateTotal();
 });
 
-$(document).on("click", "#subtract-time", function () {
-  var thisRow = $(this).closest(".new-exercise");
-  var timeAttr = parseInt(thisRow.attr("time"));
-  var newTime = timeAttr - 1;
-  thisRow.attr("time", newTime)
-  var displayTime = thisRow.find(".seconds");
-  displayTime.val(newTime);
+$(document).on("click", ".decrease-amount", function () {
+  var thisRow = $(this).closest(".new-snack");
+  var amtAttr = parseInt(thisRow.attr("amount"));
+  var newAmt = amtAttr - 1;
+  thisRow.attr("amount", newAmt)
+  var displayNumber = thisRow.find(".number");
+  displayNumber.val(newAmt);
   calculateTotal();
 });
 
-$("#save-routine").on("click", function () {
-  $(".new-exercise").each(function(){
-    snackNumber = $(this).attr("row")
-    snacksRef = database.ref("snacks");
-    newSnack = snacksRef.child(snackNumber);
+$(document).on("change keyup", ".amount", function() {
+  var inputAmount = $(this).val();
+  $(this).closest(".new-snack").attr("amount", inputAmount);
+  calculateTotal();
+  console.log("change");
+});
+
+$("#save-list").on("click", function () {
+  $(".new-snack").each(function(){
+    var snackNumber = $(this).attr("row");
+    var snacksRef = database.ref("snacks");
+    var newSnack = snacksRef.child(snackNumber);
     newSnack.set({
       name: $(this).find(".name-label").text(),
-      amount: $(this).find(".seconds").val(),
+      amount: $(this).find(".number").val(),
     });
   });
-  /* var updatedCount = $(".new-exercise").length;
-  console.log(updatedCount + " snacks stored in database");
-  
-  database.ref().update({snackCount: updatedCount}); */
 
   $(".saved-alert").slideToggle();
 });
 
 
 $("#discard").on("click", function () {
-  resetRoutine();
+  resetList();
 });
 
 $(".saved-alert").on("click", function () {
   $(".saved-alert").slideToggle();
 });
 
-function resetRoutine(){
+function resetList(){
   $("#routine-input").val("");
   $("#type-input option:first").attr("selected",true);
   $("#target-input option:first").attr("selected",true);
