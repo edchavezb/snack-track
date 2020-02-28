@@ -16,6 +16,7 @@ var snackArray;
 
 database.ref('snacks').once('value').then(function(snapshot) {
   snackArray = snapshot.val();
+  rows = snackArray.length;
   console.log(snackArray)
   for(var i = 0; i < snackArray.length; i++){
     var snackName = snackArray[i].name
