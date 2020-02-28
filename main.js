@@ -50,6 +50,17 @@ function rearrangeRows() {
   });
 }
 
+function wipeData(){
+  database.ref('snacks').set({});
+}
+
+function resetList(){
+  $(".display-snacks").empty();
+  $("#name-input").val("");
+  rows = 0;
+  calculateTotal();
+}
+
 $("#add-item").on("click", function () {
   event.preventDefault();
   var name = $("#name-input").val();
@@ -103,6 +114,7 @@ $(document).on("change keyup", ".number", function() {
 });
 
 $("#save-list").on("click", function () {
+  wipeData();
   $(".new-snack").each(function(){
     var snackNumber = $(this).attr("row");
     var snacksRef = database.ref("snacks");
@@ -112,22 +124,15 @@ $("#save-list").on("click", function () {
       amount: $(this).find(".number").val(),
     });
   });
-
   $(".saved-alert").slideToggle();
 });
 
 
 $("#discard").on("click", function () {
   resetList();
+  wipeData();
 });
 
 $(".saved-alert").on("click", function () {
   $(".saved-alert").slideToggle();
 });
-
-function resetList(){
-  $(".display-snacks").empty();
-  $("#name-input").val("");
-  rows = 0;
-  calculateTotal();
-}
